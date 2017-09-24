@@ -30,6 +30,7 @@ set laststatus=2
 set list
 set listchars=tab:▸\ ,trail:▫
 set number
+set relativenumber
 set ruler
 set scrolloff=3
 set shiftwidth=2

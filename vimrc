@@ -2,7 +2,8 @@
 filetype off                  " required
 
 " Enable syntax highlighting
-syntax enable
+syntax on
+set t_Co=256                " Explicitly tell vim that the terminal supports 256 colors"
 
 " configure Vundle
 filetype on " without this vim emits a zero exit status, later, because of :ft off
@@ -17,6 +18,9 @@ endif
 
 call vundle#end()
 
+
+set background=dark
+colorscheme solarized
 filetype plugin indent on
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
@@ -32,7 +36,7 @@ set listchars=tab:▸\ ,trail:▫
 set number
 set relativenumber
 set ruler
-set scrolloff=3
+set scrolloff=5
 set shiftwidth=2
 set showcmd
 set smartcase
@@ -40,6 +44,6 @@ set wildmenu
 set wildmode=longest,list,full
 
 " airline settings
-" let g:airline_theme='solarized'
+"let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 set updatetime=250

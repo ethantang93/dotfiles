@@ -18,11 +18,22 @@ endif
 
 call vundle#end()
 
-
+" enable mouse scrolling support in iterm
 if has('mouse')
   set mouse=a
 " set ttymouse=xterm2
 endif
+
+" open nerdtree automatically when vim startup with no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"Now start vim with plain vim, not vim .
+
+" set a map leader for more key combos
+let mapleader = ','
+" Toggle NERDTree
+nmap <silent> <leader>k :NERDTreeToggle<cr>
+
 set background=dark
 colorscheme solarized
 filetype plugin indent on

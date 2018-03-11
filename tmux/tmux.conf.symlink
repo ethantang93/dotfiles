@@ -1,7 +1,7 @@
 # unbind default prefix and set it to Ctrl+a
-unbind C-b
-set -g prefix C-a
-bind C-a send-prefix
+# unbind C-b
+# set -g prefix C-a
+# bind C-a send-prefix
 
 # Rename your terminals
 set -g set-titles on

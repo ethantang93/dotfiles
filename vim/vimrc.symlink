@@ -2,6 +2,7 @@
 filetype off                  " required
 
 " Enable syntax highlighting
+let python_highlight_all=1
 syntax on
 set t_Co=256                " Explicitly tell vim that the terminal supports 256 colors"
 
@@ -33,6 +34,9 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let mapleader = ','
 " Toggle NERDTree
 nmap <silent> <leader>k :NERDTreeToggle<cr>
+
+" auto quit if NERDTREE if it is the last and only buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 set background=dark
 colorscheme solarized

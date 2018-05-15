@@ -1,8 +1,9 @@
 " Ethan's vim configuration file
 filetype off                  " required
 
-" Enable syntax highlighting
+" Enable python syntax hightlighting
 let python_highlight_all=1
+" Enable syntax highlighting
 syntax on
 set t_Co=256                " Explicitly tell vim that the terminal supports 256 colors"
 
@@ -32,11 +33,33 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " set a map leader for more key combos
 let mapleader = ','
-" Toggle NERDTree
+" Toggle NERDTree with comma k
 nmap <silent> <leader>k :NERDTreeToggle<cr>
 
 " auto quit if NERDTREE if it is the last and only buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" setting indent for python files
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+" setting indent for js, html and css files
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+"split navigations for vim
+"Control + j/k/l/h to go down/up/right/left
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 set background=dark
 colorscheme solarized

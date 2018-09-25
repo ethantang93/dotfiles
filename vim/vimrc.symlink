@@ -12,6 +12,7 @@ filetype on " without this vim emits a zero exit status, later, because of :ft o
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+set nowrap
 
 " install Vundle bundles
 if filereadable(expand("~/.vimrc.bundles"))
@@ -84,12 +85,15 @@ set showcmd
 set smartcase
 set wildmenu
 set wildmode=longest,list,full
+set hlsearch  " hightlight the search results
+let g:pymode_options_max_line_length = 100
+autocmd FileType python set colorcolumn=100
 
 " airline settings
 let g:airline_theme='powerlineish'
 "let g:airline_theme='dark'
 let g:airline_powerline_fonts = 1
-set updatetime=250
+set updatetime=50
 
 let g:pymode_rope = 1
 let g:pymode_rope_completion_bind = '<C-Space>'

@@ -88,6 +88,7 @@ set wildmode=longest,list,full
 set hlsearch  " hightlight the search results
 let g:pymode_options_max_line_length = 100
 autocmd FileType python set colorcolumn=100
+set nowrap                                                   "disable line wrapping
 
 " airline settings
 let g:airline_theme='powerlineish'
@@ -102,3 +103,4 @@ let g:pymode_rope_complete_on_dot = 1
 let g:autopep8_max_line_length=100
 let NERDTreeIgnore = ['\.pyc$']
 
+set completeopt=menu

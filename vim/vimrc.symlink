@@ -1,25 +1,19 @@
 " Ethan's vim configuration file
-filetype off                  " required
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 
-" Enable python syntax hightlighting
-let python_highlight_all=1
-" Enable syntax highlighting
-syntax on
 set t_Co=256                " Explicitly tell vim that the terminal supports 256 colors"
 
-" configure Vundle
-filetype on " without this vim emits a zero exit status, later, because of :ft off
-filetype off
+" configure Vundle {
+filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-set nowrap
-
 " install Vundle bundles
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
-
 call vundle#end()
+filetype plugin indent on
+" }
 
 " enable mouse scrolling support in iterm
 if has('mouse')
@@ -27,49 +21,33 @@ if has('mouse')
 " set ttymouse=xterm2
 endif
 
-" open nerdtree automatically when vim startup with no file specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"Now start vim with plain vim, not vim .
+" Auto remember Code Folding {
+    " make vim remember code folding automatically
+    " https://vim.fandom.com/wiki/Make_views_automatic
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent loadview
+    " vim code folding tutorial
+    " https://vim.fandom.com/wiki/Folding
+" }
 
-" set a map leader for more key combos
-let mapleader = ','
-" Toggle NERDTree with comma k
-nmap <silent> <leader>k :NERDTreeToggle<cr>
-
-" auto quit if NERDTREE if it is the last and only buffer
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" setting indent for python files
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
-" setting indent for js, html and css files
-au BufNewFile,BufRead *.js,*.html,*.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
-
-"split navigations for vim
-"Control + j/k/l/h to go down/up/right/left
+" split navigations for vim {
+" Control + j/k/l/h to go down/up/right/left
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" }
 
-set background=dark
+let mapleader = ',' " set a map leader for more key combos
+syntax on                   " Enable syntax highlighting
 colorscheme solarized
-filetype plugin indent on
+set background=dark
+set nowrap
 set autoindent
-set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
-set backspace=2                                              " Fix broken backspace in some setups
-set clipboard=unnamed                                        " yank and paste with the system clipboard
-set directory-=.                                             " don't store swapfiles in the current directory
+set autoread " reload files when changed on disk, i.e. via `git checkout`
+set backspace=2 " Fix broken backspace in some setups
+set clipboard=unnamed " yank and paste with the system clipboard
+set directory-=. " don't store swapfiles in the current directory
 set encoding=utf-8
 set ignorecase
 set incsearch
@@ -86,21 +64,58 @@ set smartcase
 set wildmenu
 set wildmode=longest,list,full
 set hlsearch  " hightlight the search results
-let g:pymode_options_max_line_length = 100
-autocmd FileType python set colorcolumn=100
-set nowrap                                                   "disable line wrapping
-
-" airline settings
-let g:airline_theme='powerlineish'
-"let g:airline_theme='dark'
-let g:airline_powerline_fonts = 1
+nnoremap <leader><space> :noh<cr> " disable highlighting after done with a search
 set updatetime=50
 
-let g:pymode_rope = 1
-let g:pymode_rope_completion_bind = '<C-Space>'
-let g:pymode_rope_completion = 1
-let g:pymode_rope_complete_on_dot = 1
-let g:autopep8_max_line_length=100
-let NERDTreeIgnore = ['\.pyc$']
+" Language specific settings {
+  " Python files {
+    au BufNewFile,BufRead *.py
+      \ set tabstop=4 |
+      \ set softtabstop=4 |
+      \ set shiftwidth=4 |
+      \ set textwidth=79 |
+      \ set expandtab |
+      \ set autoindent |
+      \ set fileformat=unix
+    autocmd FileType python set colorcolumn=100
+    " Enable python syntax hightlighting
+    let python_highlight_all=1
+  " }
+  "js, html and css files {
+    au BufNewFile,BufRead *.js,*.html,*.css
+      \ set tabstop=2 |
+      \ set softtabstop=2 |
+      \ set shiftwidth=2 |
+  " }
+" }
+" Plugin specific settings {
+    " Airline settings {
+    let g:airline_theme='powerlineish'
+    let g:airline_powerline_fonts = 1
+    "let g:airline_theme='dark'
+    " }
+    " Pymode settings {
+    "let g:pymode_rope = 1
+    "let g:pymode_rope_completion_bind = '<C-Space>'
+    "let g:pymode_rope_completion = 1
+    "let g:pymode_options_max_line_length = 100
+    "let g:pymode_rope_complete_on_dot = 1
+    "let g:autopep8_max_line_length=100
+    " }
+    " NERDTree {
+        let NERDTreeIgnore = ['\.pyc$']
 
+        " open nerdtree automatically when vim startup with no file specified
+        autocmd StdinReadPre * let s:std_in=1
+        autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+        " Now start vim with plain vim, not vim .
+
+        " Toggle NERDTree with comma k
+        nmap <silent> <leader>n :NERDTreeToggle<cr>
+
+        " auto quit if NERDTREE if it is the last and only buffer
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    " }
+" }
 set completeopt=menu
+

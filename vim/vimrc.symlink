@@ -116,6 +116,9 @@ set updatetime=50
         " auto quit if NERDTREE if it is the last and only buffer
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     " }
+    " FZF fuzzy finder {
+       nnoremap <C-p> :<C-u>FZF<CR>
+    " }
 " }
 set completeopt=menu
 

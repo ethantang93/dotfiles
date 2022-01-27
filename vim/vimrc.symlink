@@ -46,7 +46,7 @@ set nowrap
 set autoindent
 set autoread " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2 " Fix broken backspace in some setups
-set clipboard=unnamed " yank and paste with the system clipboard
+"set clipboard=unnamed " yank and paste with the system clipboard
 set directory-=. " don't store swapfiles in the current directory
 set encoding=utf-8
 set ignorecase
@@ -57,7 +57,7 @@ set listchars=tab:▸\ ,trail:▫
 set number
 set relativenumber
 set ruler
-set scrolloff=5
+set scrolloff=7
 set shiftwidth=2
 set showcmd
 set smartcase
@@ -110,8 +110,11 @@ set updatetime=50
         autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
         " Now start vim with plain vim, not vim .
 
-        " Toggle NERDTree with comma k
+        " Toggle NERDTree with comma n
         nmap <silent> <leader>n :NERDTreeToggle<cr>
+
+        " Sync NERDTree with current open tab
+        map <leader>s :NERDTreeFind<cr>
 
         " auto quit if NERDTREE if it is the last and only buffer
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
